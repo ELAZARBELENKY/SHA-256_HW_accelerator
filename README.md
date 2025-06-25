@@ -20,11 +20,11 @@ Includes simulation, testbenches, waveform analysis, and full documentation
 
 **📦 Contents**
 
-rtl/        – SystemVerilog source for the SHA-256 core and wrapper  
-tb/         – Testbenche, and waveform files
-scripts/    – Project automation scripts TCL  
-notebooks/  – Python Jupyter notebooks for usage, testing, and benchmarking  
-report/     – Full project book in Hebrew describing the theory, design, implementation, and results  
+* rtl/        – SystemVerilog source for the SHA-256 core and wrapper  
+* tb/         – Testbenche, and waveform files
+* scripts/    – Project automation scripts TCL  
+* notebooks/  – Python Jupyter notebooks for usage, testing, and benchmarking  
+* report/     – Full project book in Hebrew describing the theory, design, implementation, and results  
 
 
 **📊 Result Highlights**
