@@ -22,7 +22,7 @@ def sha256_pad(message: bytes) -> np.ndarray:
 
 # Hardware SHA-256 Calculation
 def calculate_sha256_hardware(filepath: str) -> tuple:
-    overlay = Overlay("SHA256_Block_Design.bit")
+    overlay = Overlay("SHA256_BlockDesign_wrapper.bit")
     dma = overlay.axi_dma_0
     
     with open(filepath, "rb") as f:
