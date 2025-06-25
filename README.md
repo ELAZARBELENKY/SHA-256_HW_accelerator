@@ -60,9 +60,9 @@ To recreate the Vivado project and regenerate the bitstream:
        git clone https://github.com/ELAZARBELENKY/sha-256_HW_accelerator.git
        cd sha-256_HW_accelerator/scripts/
 
-2. **Launch Vivado** 
-   (recommended version: 2019.1) 
-On Windows:
+2. **Launch Vivado**  (recommended version: 2019.1) 
+
+    On Windows:
 
        "C:/Xilinx/Vivado/2019.1/bin/vivado.bat"
 
@@ -72,27 +72,28 @@ On Windows:
 
        vivado &
 
-3. **In the Tcl Console**,
-  In the Tcl Console (open with `Ctrl+Shift+T` inside Vivado), run:
+3. **Tcl Console**,
+
+   In the Tcl Console (open with `Ctrl+Shift+T` inside Vivado), run:
 
        pwd
 
-   Make sure the path ends in /scripts. If not, navigate there manually:
+    Make sure the path ends in /scripts. If not, navigate there manually:
 
         cd /full/path/to/sha-256_HW_accelerator/scripts/
 
-   📝 Replace /path/to/... with the actual full path to the project directory.
+    📝 Replace /path/to/... with the actual full path to the project directory.
 
-   Then run:
+    Then run:
 
         source SHA256_HW_accelerator.tcl
 
 4. **Vivado will:**
- \*  Create a new project
- \*  Add RTL sources and constraints
- \*  Rebuild the block design
- \*  Generate and add the BD wrapper
- \*  Prepare everything for synthesis and implementation
+ *  Create a new project
+ *  Add RTL sources and constraints
+ *  Rebuild the block design
+ *  Generate and add the BD wrapper
+ *  Prepare everything for synthesis and implementation
 
 5. **To generate the bitstream (optional step):**
 
