@@ -1,4 +1,4 @@
-# sha-256_HW_accelerator
+# sha-256 HW accelerator
 Hardware-accelerated SHA-256 implemented on a PYNQ-Z2 FPGA. Includes custom SystemVerilog IP, AXI4-Lite/DMA integration, and Python/Jupyter interface. Achieves faster hashing for large data vs CPU
 
 
@@ -12,8 +12,7 @@ The project leverages the Xilinx PYNQ-Z2 FPGA platform to accelerate cryptograph
 **🚀 Features**
 
 Full RTL implementation of SHA-256 per FIPS PUB 180-4
-Custom SystemVerilog IP optimized for pipelined hashing
-AXI4-Lite + AXI-Stream DMA for high-throughput communication
+Custom SystemVerilog IP
 Python interface running on PYNQ’s ARM cores for easy control and testing
 Performance comparison vs software hashing to show hardware advantage on large datasets
 Includes simulation, testbenches, waveform analysis, and full documentation
@@ -21,20 +20,18 @@ Includes simulation, testbenches, waveform analysis, and full documentation
 
 **📦 Contents**
 
-rtl/ – SystemVerilog source for the SHA-256 core and wrapper
-
-vivado/ – Block design files and bitstream generation scripts
-
-notebooks/ – Python Jupyter notebooks for usage, testing, and benchmarking
-
-report/ – Full project book in Hebrew describing the theory, design, implementation, and results
+rtl/        – SystemVerilog source for the SHA-256 core and wrapper  
+tb/         – Testbenche, and waveform files
+scripts/    – Project automation scripts TCL  
+notebooks/  – Python Jupyter notebooks for usage, testing, and benchmarking  
+report/     – Full project book in Hebrew describing the theory, design, implementation, and results  
 
 
 **📊 Result Highlights**
 
 Hardware beats software in performance for inputs ≥ 70KB
 
-~2.6× speedup over CPU at 14MB input size
+~2.6× speedup over CPU
 
 Demonstrates how FPGAs can effectively offload compute-heavy cryptographic tasks
 
@@ -44,3 +41,62 @@ Demonstrates how FPGAs can effectively offload compute-heavy cryptographic tasks
 * PYNQ-Z2 board
 * Python 3.x with PYNQ image
 * Jupyter Notebook
+
+
+## 🛠️ Rebuilding the Project in Vivado
+
+⚠️ **Note:**
+The generated bitstream (*.bit) and hardware description file (*.hwh) are already included in this repository under the bitstream/ folder.
+You do not need to rebuild the project unless you want to:
+\*Inspect or modify the design
+\*Regenerate the bitstream manually
+\*Integrate with custom logic or interfaces
+The instructions below are for recreating the Vivado project from scratch.
+
+To recreate the Vivado project and regenerate the bitstream:
+
+1. **Clone this repository:**
+
+       git clone https://github.com/ELAZARBELENKY/sha-256_HW_accelerator.git
+       cd sha-256_HW_accelerator/scripts/
+
+2. **Launch Vivado** 
+   (recommended version: 2019.1) 
+On Windows:
+
+       "C:/Xilinx/Vivado/2019.1/bin/vivado.bat"
+
+   📝 Replace \2019.1 with your version of vivado.
+
+    On Linux:
+
+       vivado &
+
+3. **In the Tcl Console**,
+  In the Tcl Console (open with `Ctrl+Shift+T` inside Vivado), run:
+
+       pwd
+
+   Make sure the path ends in /scripts. If not, navigate there manually:
+
+        cd /full/path/to/sha-256_HW_accelerator/scripts/
+
+   📝 Replace /path/to/... with the actual full path to the project directory.
+
+   Then run:
+
+        source SHA256_HW_accelerator.tcl
+
+4. **Vivado will:**
+ \*  Create a new project
+ \*  Add RTL sources and constraints
+ \*  Rebuild the block design
+ \*  Generate and add the BD wrapper
+ \*  Prepare everything for synthesis and implementation
+
+5. **To generate the bitstream (optional step):**
+
+
+       launch_runs impl_1 -to_step write_bitstream -jobs 4
+
+   You can also do this via the Vivado GUI using Flow → Generate Bitstream.

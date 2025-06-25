@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="sha256_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="sha256_pkg" />
+            <top_module name="sha256_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="20000000001fs"></ZoomEndTime>
+      <Cursor1Time time="20000000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="267"></NameColumnWidth>
+      <ValueColumnWidth column_width="211"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="21" />
+   <wvobject fp_name="/sha256_tb/t" type="array">
+      <obj_property name="ElementShortName">t[31:0]</obj_property>
+      <obj_property name="ObjectShortName">t[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/resetn" type="logic">
+      <obj_property name="ElementShortName">resetn</obj_property>
+      <obj_property name="ObjectShortName">resetn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/s_axis_tlast" type="logic">
+      <obj_property name="ElementShortName">s_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/s_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/s_axis_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/m_axis_tready" type="logic">
+      <obj_property name="ElementShortName">m_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/m_axis_tdata" type="array">
+      <obj_property name="ElementShortName">m_axis_tdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/s_axis_tready" type="logic">
+      <obj_property name="ElementShortName">s_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/m_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/m_axis_tlast" type="logic">
+      <obj_property name="ElementShortName">m_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/word" type="array">
+      <obj_property name="ElementShortName">word[31:0]</obj_property>
+      <obj_property name="ObjectShortName">word[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/expanded_word" type="array">
+      <obj_property name="ElementShortName">expanded_word[31:0]</obj_property>
+      <obj_property name="ObjectShortName">expanded_word[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/w" type="array">
+      <obj_property name="ElementShortName">w[15:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">w[15:0][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/state" type="array">
+      <obj_property name="ElementShortName">state[7:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">state[7:0][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/new_state" type="array">
+      <obj_property name="ElementShortName">new_state[7:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">new_state[7:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/initial_state" type="array">
+      <obj_property name="ElementShortName">initial_state[7:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">initial_state[7:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/round_index" type="array">
+      <obj_property name="ElementShortName">round_index[5:0]</obj_property>
+      <obj_property name="ObjectShortName">round_index[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/chunk_end" type="logic">
+      <obj_property name="ElementShortName">chunk_end</obj_property>
+      <obj_property name="ObjectShortName">chunk_end</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/sha" type="array">
+      <obj_property name="ElementShortName">sha[7:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">sha[7:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/sha256_tb/uut/state_t" type="array">
+      <obj_property name="ElementShortName">state_t[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state_t[1:0]</obj_property>
+   </wvobject>
+</wave_config>

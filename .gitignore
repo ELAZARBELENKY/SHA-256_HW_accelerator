@@ -1,0 +1,49 @@
+# Vivado build output
+*.jou
+*.log
+*.str
+*.wdb
+*.xml
+*.backup
+*.xpr
+*.runs/
+*.srcs/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.webtalk/
+*.sim/
+*.vivado/
+*.sdk/
+
+# Simulation outputs
+*.vcd
+*.vpd
+*.wlf
+*.asdb
+*.ucdb
+xsim.dir/
+modelsim.ini
+transcript
+vsim.wlf
+
+# Python/Notebook stuff
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*.tmp
+*.~*
+
+# Keep source folders
+!scripts/
+!constrs/
+!bd/
+!rtl/
+!tb/
