@@ -3,7 +3,7 @@
 *.log
 *.str
 *.wdb
-*.xml
+#*.xml
 *.backup
 *.xpr
 *.runs/
