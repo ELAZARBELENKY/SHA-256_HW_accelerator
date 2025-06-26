@@ -11,20 +11,21 @@ The project leverages the Xilinx PYNQ-Z2 FPGA platform to accelerate cryptograph
 
 **🚀 Features**
 
-Full RTL implementation of SHA-256 per FIPS PUB 180-4
-Custom SystemVerilog IP
-Python interface running on PYNQ’s ARM cores for easy control and testing
-Performance comparison vs software hashing to show hardware advantage on large datasets
-Includes simulation, testbenches, waveform analysis, and full documentation
+- ✅ Full RTL implementation of SHA-256 per FIPS PUB 180-4  
+- 🛠️ Custom SystemVerilog IP  
+- 🐍 Python interface running on PYNQ’s ARM cores for easy control and testing  
+- 📈 Performance comparison vs software hashing  
+- 🧪 Includes simulation, testbenches, waveform analysis, and full documentation  
 
 
 **📦 Contents**
 
-* rtl/        – SystemVerilog source for the SHA-256 core and wrapper  
-* tb/         – Testbenche, and waveform files
-* scripts/    – Project automation scripts TCL  
-* notebooks/  – Python Jupyter notebooks for usage, testing, and benchmarking  
-* report/     – Full project book in Hebrew describing the theory, design, implementation, and results  
+* rtl/                  – SystemVerilog source for the SHA-256 core and wrapper  
+* tb/                   – Testbenche, and waveform files
+* scripts/              – Project automation scripts TCL  
+* notebooks/            – Python Jupyter notebooks for usage, testing, and benchmarking  
+* report/               – Full project book in Hebrew describing the theory, design, implementation, and results
+* PYNQ_board_file/      - Board definition ZIP for Vivado (PYNQ-Z2)
 
 
 **📊 Result Highlights**
@@ -55,6 +56,25 @@ The instructions below are for recreating the Vivado project from scratch.
 
 To recreate the Vivado project and regenerate the bitstream:
 
+ 0. Add PYNQ-Z2 Board File (Only Once)
+
+    Vivado does **not** include the PYNQ-Z2 board by default. You need to install the board definition files **only if** this is your first time using the PYNQ-Z2 in Vivado 2019.1 on this machine:
+
+   * Locate the following folder in this repository:  
+   `sha-256_HW_accelerator/PYNQ_board_file/`
+
+   * Extract the `.zip` file inside it (e.g., `pynq-z2.zip`).
+
+   * Copy the extracted folder to the Vivado board files directory:
+
+        `C:\Xilinx\Vivado\2019.1\data\boards\board_files\`
+
+   > 📝 Replace \2019.1 with your version of vivado.
+
+   * Restart Vivado if it was already open.
+
+   *This step needs to be done only once per Vivado installation.*
+
 1. **Clone this repository:**
 
        git clone https://github.com/ELAZARBELENKY/sha-256_HW_accelerator.git
@@ -66,7 +86,7 @@ To recreate the Vivado project and regenerate the bitstream:
 
        "C:/Xilinx/Vivado/2019.1/bin/vivado.bat"
 
-   📝 Replace \2019.1 with your version of vivado.
+   > 📝 Replace \2019.1 with your version of vivado.
 
     On Linux:
 
@@ -82,7 +102,7 @@ To recreate the Vivado project and regenerate the bitstream:
 
         cd /full/path/to/sha-256_HW_accelerator/scripts/
 
-    📝 Replace /path/to/... with the actual full path to the project directory.
+   > 📝 Replace /path/to/... with the actual full path to the project directory.
 
     Then run:
 

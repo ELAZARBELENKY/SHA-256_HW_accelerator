@@ -123,106 +123,137 @@ set_property -name "xpm_libraries" -value "XPM_MEMORY" -objects $obj
 if {[string equal [get_filesets -quiet sources_1] ""]} {
   create_fileset -srcset sources_1
 }
-
-# Set IP repository paths
+# Set IP repository path
 set obj [get_filesets sources_1]
 set_property "ip_repo_paths" "[file normalize "$origin_dir/"]" $obj
-
 # Rebuild user ip_repo's index before adding any source files
 update_ip_catalog -rebuild
 
-# Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-# Import local files from the original project
-set files [list \
- [file normalize "${origin_dir}/../rtl/SHA256_BD_wrapper.v" ]\
- [file normalize "${origin_dir}/../rtl/sha256_pkg.sv" ]\
- [file normalize "${origin_dir}/../rtl/sha256_expansion.sv" ]\
- [file normalize "${origin_dir}/../rtl/sha256_round.sv" ]\
- [file normalize "${origin_dir}/../rtl/sha256_main.sv" ]\
- [file normalize "${origin_dir}/component.xml" ]\
-]
-set imported_files [import_files -fileset sources_1 $files]
+# Set script directory
+set script_dir [file normalize [file dirname [info script]]]
 
-# Set 'sources_1' fileset file properties for remote files
-# None
+# Set RTL source directory (relative to script)
+set rtl_dir [file normalize [file join $script_dir "../rtl"]]
 
-# Set 'sources_1' fileset file properties for local files
-set file "sha256_pkg.sv"
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
+# Set TB source directory (relative to script)
+set tb_dir [file normalize [file join $script_dir "../tb"]]
 
-set file "sha256_expansion.sv"
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
-
-set file "sha256_round.sv"
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
-
-set file "sha256_main.sv"
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
-
-set file "component.xml"
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "IP-XACT" -objects $file_obj
+# Set project directory where the Vivado project will live
+set project_dir [file normalize [file join $script_dir "SHA256_HW_accelerator"]]
+set origin_dir $project_dir
 
 
-# Set 'sources_1' fileset properties
-set obj [get_filesets sources_1]
-set_property -name "top" -value "SHA256_BD_wrapper" -objects $obj
-set_property -name "top_auto_set" -value "0" -objects $obj
 
-# Create 'constrs_1' fileset (if not found)
-if {[string equal [get_filesets -quiet constrs_1] ""]} {
-  create_fileset -constrset constrs_1
+# Create new source and sim directories
+set sources_new_dir "$origin_dir/../SHA256_HW_accelerator.srcs/sources_1/new"
+set sim_new_dir     "$origin_dir/../SHA256_HW_accelerator.srcs/sim_1/new"
+file mkdir $sources_new_dir
+file mkdir $sim_new_dir
+
+# --- Copy RTL and component.xml to sources_1/new ---
+foreach f {
+    SHA256_BD_wrapper.v
+    sha256_pkg.sv
+    sha256_expansion.sv
+    sha256_round.sv
+    sha256_main.sv
+} {
+    set src "$rtl_dir/$f"
+    set dst "$sources_new_dir/$f"
+    if {[file exists $src]} {
+        file copy -force $src $dst
+    } else {
+        puts "ERROR: Missing RTL file: $src"
+        error "Missing RTL file: $src"
+    }
+}
+# Copy component.xml from script_dir
+set component_src "$script_dir/component.xml"
+set component_dst "$origin_dir/component.xml"
+if {[file exists $component_src]} {
+    file copy -force $component_src $component_dst
+} else {
+    puts "ERROR: Missing component.xml in $script_dir"
+    error "Missing component.xml"
 }
 
-# Set 'constrs_1' fileset object
-set obj [get_filesets constrs_1]
+# --- Add files to sources_1 ---
+set rtl_files {}
+foreach f {
+    SHA256_BD_wrapper.v
+    sha256_pkg.sv
+    sha256_expansion.sv
+    sha256_round.sv
+    sha256_main.sv
+} {
+    lappend rtl_files "$sources_new_dir/$f"
+}
+add_files -fileset sources_1 $rtl_files
 
-# Empty (no sources present)
-
-# Set 'constrs_1' fileset properties
-set obj [get_filesets constrs_1]
-
-# Create 'sim_1' fileset (if not found)
-if {[string equal [get_filesets -quiet sim_1] ""]} {
-  create_fileset -simset sim_1
+# --- Set file types for RTL files ---
+foreach file {
+    sha256_pkg.sv
+    sha256_expansion.sv
+    sha256_round.sv
+    sha256_main.sv
+} {
+    set file_obj [get_files -of_objects [get_filesets sources_1] -filter "name =~ *$file"]
+    if {[llength $file_obj] > 0} {
+        set_property file_type SystemVerilog $file_obj
+    } else {
+        puts "WARNING: No match for $file in sources_1"
+    }
+}
+set file_obj [get_files -of_objects [get_filesets sources_1] -filter "name =~ *component.xml"]
+if {[llength $file_obj] > 0} {
+    set_property file_type IP-XACT $file_obj
+} else {
+    puts "WARNING: No match for component.xml in sources_1"
 }
 
-# Set 'sim_1' fileset object
-set obj [get_filesets sim_1]
-# Import local files from the original project
-set files [list \
- [file normalize "${origin_dir}/../tb/sha256_tb.sv" ]\
- [file normalize "${origin_dir}/../tb/sha256_tb_behav.wcfg" ]\
-]
-set imported_files [import_files -fileset sim_1 $files]
+# Set top module
+set sources_fileset [get_filesets sources_1]
+set_property top SHA256_BD_wrapper $sources_fileset
+set_property top_auto_set false $sources_fileset
 
-# Set 'sim_1' fileset file properties for remote files
-# None
+# --- Copy TB files to sim_1/new ---
+foreach f {
+    sha256_tb.sv
+    sha256_tb_behav.wcfg
+} {
+    set src "$tb_dir/$f"
+    set dst "$sim_new_dir/$f"
+    if {[file exists $src]} {
+        file copy -force $src $dst
+    } else {
+        puts "ERROR: Missing TB file: $src"
+        error "Missing TB file: $src"
+    }
+}
 
-# Set 'sim_1' fileset file properties for local files
-set file "sha256_tb.sv"
-set file_obj [get_files -of_objects [get_filesets sim_1] [list "*$file"]]
-set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
+# --- Add files to sim_1 ---
+set tb_files {}
+foreach f {
+    sha256_tb.sv
+    sha256_tb_behav.wcfg
+} {
+    lappend tb_files "$sim_new_dir/$f"
+}
+add_files -fileset sim_1 $tb_files
 
+# Set file types for TB
+set tb_obj [get_files -of_objects [get_filesets sim_1] -filter "name =~ *sha256_tb.sv"]
+if {[llength $tb_obj] > 0} {
+    set_property file_type SystemVerilog $tb_obj
+} else {
+    puts "WARNING: sha256_tb.sv not found in sim_1"
+}
 
-# Set 'sim_1' fileset properties
-set obj [get_filesets sim_1]
-set_property -name "top" -value "sha256_tb" -objects $obj
-set_property -name "top_auto_set" -value "0" -objects $obj
-set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
-
-# Set 'utils_1' fileset object
-set obj [get_filesets utils_1]
-# Empty (no sources present)
-
-# Set 'utils_1' fileset properties
-set obj [get_filesets utils_1]
-
+# Set top for sim_1
+set sim_fileset [get_filesets sim_1]
+set_property top sha256_tb $sim_fileset
+set_property top_auto_set false $sim_fileset
+set_property top_lib xil_defaultlib $sim_fileset
 
 ######################################################################################################################################################################################################
 ################################################################
