@@ -44,6 +44,69 @@ Demonstrates how FPGAs can effectively offload compute-heavy cryptographic tasks
 * Jupyter Notebook
 
 
+## 🧪 Running the Program on the PYNQ Board
+
+### 📋 Step-by-Step Instructions
+
+1. **Connect to the PYNQ Board**
+   - Power on the board and connect via USB (for powering the board) and Ethernet.
+   - Ensure both your PC and the board are on the same subnet (e.g., `192.168.2.X`).
+   - Open a browser and navigate to:
+
+     ```
+     http://<PYNQ_BOARD_IP>:9090
+     ```
+
+     📝 Example: `http://192.168.2.99:9090`
+
+   - If unsure of the board’s IP:
+     - Connect via serial/USB and log in (`username: xilinx`, `password: xilinx`), then run:
+       ```bash
+       ifconfig
+       ```
+     - Look for the `eth0` or `usb0` IP address.
+
+   - Log in to the Jupyter interface (default password is often `xilinx`).
+
+2. **Upload Required Files**
+   Upload the following files from the repository to the **Jupyter main directory**
+
+   - Bitstream files:
+     ```
+     bitstream/SHA256_BlockDesign_wrapper.bit
+     bitstream/SHA256_BlockDesign_wrapper.hwh
+     ```
+   - Choose one of the following Python scripts:
+     - `notebooks/user_interface.py` — for interactive image hashing
+     - `notebooks/graphs.py` — for performance comparison and benchmarking
+
+3. **Create and Run a Notebook**
+   - In the Jupyter interface, click **New → Python 3 Notebook**.
+   - Paste the contents of either `user_interface.py` or `graphs.py` into the notebook.
+   - Run all cells.
+
+---
+
+### 🎨 For `user_interface.py`: Prepare the Image Directory
+
+If you're running `user_interface.py` (the interactive mode for hashing images):
+
+1. In the Jupyter file browser, create a directory named:
+    pictures/
+
+2. Upload the image(s) you want to hash into the `pictures/` directory.
+
+3. When you run the notebook, follow the on-screen prompts to select and hash the image using the hardware accelerator.
+
+> 📸 Example:
+> Upload a file like `mycat.png` to `pictures/`, run the notebook, and you'll get its SHA-256 hash in real time.
+
+---
+
+That's it! You’re now running a custom cryptographic accelerator on bare-metal FPGA hardware, controlled via Python 🚀
+
+
+
 ## 🛠️ Rebuilding the Project in Vivado
 
 ⚠️ **Note:**
@@ -68,8 +131,7 @@ To recreate the Vivado project and regenerate the bitstream:
    * Copy the extracted folder to the Vivado board files directory:
 
         `C:\Xilinx\Vivado\2019.1\data\boards\board_files\`
-
-   > 📝 Replace \2019.1 with your version of vivado.
+     > 📝 Replace \2019.1 with your version of vivado.
 
    * Restart Vivado if it was already open.
 
